@@ -12,6 +12,7 @@ const ProjectDetailPage = () => {
   useEffect(() => {
     const load = async () => {
       const res = await projectApi.getBySlug(slug);
+      console.log(res)
       setProject(res.data);
     };
     load();

@@ -4,6 +4,7 @@ export const authApi = {
   login: async (credentials) => {
     // 1. Send request
     const res = await api.post('/auth/login', credentials);
+    console.log(res)
 
     // 2. Extract data safely
     // Backend returns: { success: true, data: { user: {...}, token: "..." } }

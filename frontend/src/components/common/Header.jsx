@@ -91,8 +91,10 @@ const Header = () => {
               <>
                 <IconButton
                   onClick={toggleTheme}
-                  color="inherit"
-                  sx={{ mr: 1 }}
+                  sx={{ 
+                    mr: 1,
+                    color: isDark ? "warning.main" : "text.primary",   
+                  }}
                 >
                   {isDark ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
