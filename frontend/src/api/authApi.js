@@ -1,33 +1,47 @@
-import api from './axios'
+import api from './axios';
 
 export const authApi = {
   login: async (credentials) => {
-    const response = await api.post('/auth/login', credentials)
-    if (response.data?.token) {
-      localStorage.setItem('token', response.data.token)
-      localStorage.setItem('user', JSON.stringify(response.data.user))
+    // 1. Send request
+    const res = await api.post('/auth/login', credentials);
+
+    // 2. Extract data safely
+    // Backend returns: { success: true, data: { user: {...}, token: "..." } }
+    const token = res?.data?.token;
+    const user = res?.data?.user;
+
+    // 3. Save to LocalStorage if successful
+    if (token && user) {
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(user));
     }
-    return response
+
+    return res;
   },
 
   logout: async () => {
-    const response = await api.post('/auth/logout')
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    return response
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.error("Logout failed", error);
+    } finally {
+      // Always clear local storage even if server call fails
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+    }
   },
 
   getMe: async () => {
-    return await api.get('/auth/me')
+    return await api.get('/auth/me');
   },
 
   updateProfile: async (formData) => {
     return await api.put('/auth/profile', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
-    })
+    });
   },
 
   changePassword: async (data) => {
-    return await api.put('/auth/password', data)
+    return await api.put('/auth/password', data);
   },
-}
+};

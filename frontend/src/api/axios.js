@@ -1,7 +1,7 @@
-import axios from 'axios'
-import toast from 'react-hot-toast'
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_URL || '/api'
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,46 +9,42 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
-  withCredentials: false,
-})
+  withCredentials: false, // Changed to false for simpler CORS in prod
+});
 
 // Request interceptor
 api.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token')
+    const token = localStorage.getItem('token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`
+      config.headers.Authorization = `Bearer ${token}`;
     }
-    return config
+    return config;
   },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor
 api.interceptors.response.use(
-  (response) => {
-    return response.data
-  },
+  (response) => response.data,
   (error) => {
-    const message = error.response?.data?.message || 'Something went wrong'
+    const message = error.response?.data?.message || 'Something went wrong';
 
     if (error.response?.status === 401) {
-      localStorage.removeItem('token')
-      localStorage.removeItem('user')
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
 
-      if (!window.location.pathname.includes('/admin/login')) {
-        window.location.href = '/admin/login'
+      // ✅ FIX: Use Hash based check and redirect
+      if (!window.location.hash.includes('/admin/login')) {
+        window.location.hash = '/admin/login';
       }
+    } else {
+      // Show toast for errors (except 401 which redirects)
+      toast.error(message);
     }
 
-    if (!(error.response?.status === 401 && window.location.pathname.includes('/admin/login'))) {
-      toast.error(message)
-    }
-
-    return Promise.reject(error)
+    return Promise.reject(error);
   }
-)
+);
 
-export default api
+export default api;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Container, Paper, Typography, TextField, IconButton } from '@mui/material';
+import { Box, Container, Paper, Typography, TextField, IconButton, Alert } from '@mui/material';
 import { Visibility, VisibilityOff, Login } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/common/Button';
@@ -13,15 +13,30 @@ const LoginPage = () => {
   const [values, setValues] = useState({ email: '', password: '' });
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(''); // State to hold error messages
 
-  const onChange = (e) => setValues((p) => ({ ...p, [e.target.name]: e.target.value }));
+  const onChange = (e) => {
+    setValues((p) => ({ ...p, [e.target.name]: e.target.value }));
+    setError(''); // Clear error when user types
+  };
 
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError('');
+
     try {
       await login(values);
+      // Login successful, go to dashboard
       navigate('/admin');
+    } catch (err) {
+      console.error("Login failed", err);
+      // Handle the error gracefully
+      if (err.response?.status === 401) {
+        setError("Invalid email or password.");
+      } else {
+        setError("Login failed. Check server connection.");
+      }
     } finally {
       setLoading(false);
     }
@@ -40,6 +55,13 @@ const LoginPage = () => {
               Enter your credentials to continue.
             </Typography>
 
+            {/* Show Error Message if exists */}
+            {error && (
+              <Alert severity="error" sx={{ mb: 2 }}>
+                {error}
+              </Alert>
+            )}
+
             <Box component="form" onSubmit={onSubmit}>
               <TextField
                 fullWidth
@@ -48,6 +70,7 @@ const LoginPage = () => {
                 value={values.email}
                 onChange={onChange}
                 sx={{ mb: 2 }}
+                required
               />
               <TextField
                 fullWidth
@@ -56,6 +79,7 @@ const LoginPage = () => {
                 value={values.password}
                 onChange={onChange}
                 type={show ? 'text' : 'password'}
+                required
                 InputProps={{
                   endAdornment: (
                     <IconButton onClick={() => setShow((p) => !p)} edge="end">
