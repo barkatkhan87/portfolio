@@ -3,7 +3,7 @@ const prodOrigins = [
 ];
 
 const corsOptions = {
-  origin: process.env.NODE_ENV === 'production'
+  origin: process.env.NODE_ENV === 'production' || 'https://barkatkhan87.github.io'
     ? (origin, cb) => {
         if (!origin) return cb(null, true);
         if (prodOrigins.includes(origin)) return cb(null, true);

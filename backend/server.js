@@ -17,6 +17,7 @@ import { apiLimiter } from './middlewares/rateLimiter.js';
 import routes from './routes/index.js';
 
 const app = express();
+app.set('trust proxy', 1);
 
 // Connect to database
 connectDB();
