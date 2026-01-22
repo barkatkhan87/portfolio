@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -14,19 +14,14 @@ import {
   Box,
   useMediaQuery,
   useTheme,
-} from "@mui/material";
-import {
-  Menu as MenuIcon,
-  Close,
-  Brightness4,
-  Brightness7,
-} from "@mui/icons-material";
-import { NAV_LINKS } from "../../utils/constants";
-import { useTheme as useCustomTheme } from "../../contexts/ThemeContext";
+} from '@mui/material';
+import { Menu as MenuIcon, Close, Brightness4, Brightness7 } from '@mui/icons-material';
+import { NAV_LINKS } from '../../utils/constants';
+import { useTheme as useCustomTheme } from '../../contexts/ThemeContext';
 
 const Header = () => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
@@ -34,8 +29,8 @@ const Header = () => {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const isActive = (path) => location.pathname === path;
@@ -46,30 +41,26 @@ const Header = () => {
         position="fixed"
         elevation={scrolled ? 4 : 0}
         sx={{
-          backgroundColor: scrolled ? "background.paper" : "transparent",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
-          transition: "all 0.3s ease",
+          backgroundColor: scrolled ? 'background.paper' : 'transparent',
+          backdropFilter: scrolled ? 'blur(10px)' : 'none',
+          transition: 'all 0.3s ease',
         }}
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
-            <Link to="/" className="flex items-center mr-auto">
-              <span className="text-2xl font-heading font-bold gradient-text">
-                Portfolio
-              </span>
+            <Link to="/" className="mr-auto flex items-center">
+              <span className="gradient-text font-heading text-2xl font-bold">Portfolio</span>
             </Link>
 
             {!isMobile && (
-              <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 {NAV_LINKS.map((link) => (
                   <Button
                     key={link.path}
                     component={Link}
                     to={link.path}
                     sx={{
-                      color: isActive(link.path)
-                        ? "primary.main"
-                        : "text.primary",
+                      color: isActive(link.path) ? 'primary.main' : 'text.primary',
                       fontWeight: isActive(link.path) ? 600 : 400,
                     }}
                   >
@@ -79,7 +70,7 @@ const Header = () => {
                 <IconButton
                   onClick={toggleTheme}
                   sx={{
-                    color: isDark ? "warning.main" : "text.primary",
+                    color: isDark ? 'warning.main' : 'text.primary',
                   }}
                 >
                   {isDark ? <Brightness7 /> : <Brightness4 />}
@@ -91,17 +82,19 @@ const Header = () => {
               <>
                 <IconButton
                   onClick={toggleTheme}
-                  sx={{ 
+                  sx={{
                     mr: 1,
-                    color: isDark ? "warning.main" : "text.primary",   
+                    color: isDark ? 'warning.main' : 'text.primary',
                   }}
                 >
                   {isDark ? <Brightness7 /> : <Brightness4 />}
                 </IconButton>
                 <IconButton
-                  color="inherit"
                   onClick={() => setMobileOpen(true)}
                   edge="end"
+                  sx={{
+                    color: isDark ? 'text.primary' : 'primary.main',
+                  }}
                 >
                   <MenuIcon />
                 </IconButton>
@@ -118,15 +111,8 @@ const Header = () => {
         PaperProps={{ sx: { width: 280 } }}
       >
         <Box sx={{ p: 2 }}>
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            mb={2}
-          >
-            <span className="text-xl font-heading font-bold gradient-text">
-              Menu
-            </span>
+          <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+            <span className="gradient-text font-heading text-xl font-bold">Menu</span>
             <IconButton onClick={() => setMobileOpen(false)}>
               <Close />
             </IconButton>
