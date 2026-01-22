@@ -75,13 +75,17 @@ export const getAdminProjects = asyncHandler(async (req, res) => {
  * @access  Public
  */
 export const getProject = asyncHandler(async (req, res) => {
+  // ✅ Normalize the slug from URL to lowercase before searching
+  const searchSlug = req.params.slug.toLowerCase();
+
   const project = await Project.findOne({ 
-    slug: req.params.slug,
+    slug: searchSlug,
     isVisible: true 
   });
 
   if (!project) {
-    throw ApiError.notFound('Project not found');
+    // Helpful error for debugging
+    throw ApiError.notFound(`Project with slug "${searchSlug}" not found or is hidden`);
   }
 
   res.status(200).json(ApiResponse.success(project, 'Project retrieved successfully'));
@@ -171,6 +175,15 @@ export const updateProject = asyncHandler(async (req, res) => {
   }
 
   const updateData = { ...req.body };
+  
+  if (updateData.title) {
+    updateData.slug = updateData.title
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-zA-Z0-9]/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+  }
 
   if (typeof updateData.technologies === 'string') {
     updateData.technologies = updateData.technologies
