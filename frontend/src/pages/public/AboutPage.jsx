@@ -17,9 +17,11 @@ const AboutPage = () => {
 
   return (
     <>
-      <Helmet><title>About | Portfolio</title></Helmet>
+      <Helmet>
+        <title>About | Portfolio</title>
+      </Helmet>
 
-      <PageSection className="py-16 bg-white dark:bg-dark-300">
+      <PageSection className="bg-white py-16 dark:bg-dark-300">
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
             <Typography variant="h3" sx={{ fontWeight: 800 }}>
@@ -62,10 +64,12 @@ const AboutPage = () => {
         </Grid>
       </PageSection>
 
-      <PageSection className="py-16 bg-gray-50 dark:bg-dark-200">
+      <PageSection className="bg-gray-50 py-16 dark:bg-dark-200">
         <Grid container spacing={3}>
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>Experience</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>
+              Experience
+            </Typography>
             {(about?.experience || []).map((e) => (
               <Card key={e._id} sx={{ mb: 2 }}>
                 <CardContent>
@@ -80,7 +84,9 @@ const AboutPage = () => {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>Education</Typography>
+            <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>
+              Education
+            </Typography>
             {(about?.education || []).map((ed) => (
               <Card key={ed._id} sx={{ mb: 2 }}>
                 <CardContent>

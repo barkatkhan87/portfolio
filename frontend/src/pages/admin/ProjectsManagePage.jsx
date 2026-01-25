@@ -1,8 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
-  Box, Typography, Grid, Card, CardContent, CardMedia, Button, Dialog, DialogTitle,
-  DialogContent, DialogActions, TextField, MenuItem, Switch, FormControlLabel
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
+  CardMedia,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  MenuItem,
+  Switch,
+  FormControlLabel,
 } from '@mui/material';
 import { projectApi } from '../../api/projectApi';
 import { CATEGORIES } from '../../utils/constants';
@@ -115,11 +128,17 @@ const ProjectsManagePage = () => {
 
   return (
     <>
-      <Helmet><title>Manage Projects | Admin</title></Helmet>
+      <Helmet>
+        <title>Manage Projects | Admin</title>
+      </Helmet>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 800 }}>Projects</Typography>
-        <Button variant="contained" onClick={onOpenCreate}>Add Project</Button>
+        <Typography variant="h4" sx={{ fontWeight: 800 }}>
+          Projects
+        </Typography>
+        <Button variant="contained" onClick={onOpenCreate}>
+          Add Project
+        </Button>
       </Box>
 
       <Grid container spacing={2}>
@@ -133,8 +152,12 @@ const ProjectsManagePage = () => {
                   {p.description}
                 </Typography>
                 <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                  <Button size="small" onClick={() => onOpenEdit(p)}>Edit</Button>
-                  <Button size="small" color="error" onClick={() => onDelete(p._id)}>Delete</Button>
+                  <Button size="small" onClick={() => onOpenEdit(p)}>
+                    Edit
+                  </Button>
+                  <Button size="small" color="error" onClick={() => onDelete(p._id)}>
+                    Delete
+                  </Button>
                 </Box>
               </CardContent>
             </Card>
@@ -147,18 +170,39 @@ const ProjectsManagePage = () => {
         <DialogContent dividers>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth label="Title" name="title" value={form.title} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Title"
+                name="title"
+                value={form.title}
+                onChange={onChange}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField select fullWidth label="Category" name="category" value={form.category} onChange={onChange}>
-                {CATEGORIES.filter(c => c.value !== 'all').map((c) => (
-                  <MenuItem key={c.value} value={c.value}>{c.label}</MenuItem>
+              <TextField
+                select
+                fullWidth
+                label="Category"
+                name="category"
+                value={form.category}
+                onChange={onChange}
+              >
+                {CATEGORIES.filter((c) => c.value !== 'all').map((c) => (
+                  <MenuItem key={c.value} value={c.value}>
+                    {c.label}
+                  </MenuItem>
                 ))}
               </TextField>
             </Grid>
 
             <Grid item xs={12}>
-              <TextField fullWidth label="Description" name="description" value={form.description} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Description"
+                name="description"
+                value={form.description}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -174,10 +218,23 @@ const ProjectsManagePage = () => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <TextField fullWidth label="Technologies (comma separated)" name="technologies" value={form.technologies} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Technologies (comma separated)"
+                name="technologies"
+                value={form.technologies}
+                onChange={onChange}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField select fullWidth label="Status" name="status" value={form.status} onChange={onChange}>
+              <TextField
+                select
+                fullWidth
+                label="Status"
+                name="status"
+                value={form.status}
+                onChange={onChange}
+              >
                 <MenuItem value="completed">Completed</MenuItem>
                 <MenuItem value="in-progress">In Progress</MenuItem>
                 <MenuItem value="planned">Planned</MenuItem>
@@ -185,10 +242,22 @@ const ProjectsManagePage = () => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-              <TextField fullWidth label="Live URL" name="liveUrl" value={form.liveUrl} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Live URL"
+                name="liveUrl"
+                value={form.liveUrl}
+                onChange={onChange}
+              />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextField fullWidth label="GitHub URL" name="githubUrl" value={form.githubUrl} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="GitHub URL"
+                name="githubUrl"
+                value={form.githubUrl}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12}>
@@ -211,10 +280,19 @@ const ProjectsManagePage = () => {
             <Grid item xs={12} md={6}>
               <Button variant="outlined" component="label" fullWidth>
                 Upload Images
-                <input hidden type="file" accept="image/*" name="images" multiple onChange={onFile} />
+                <input
+                  hidden
+                  type="file"
+                  accept="image/*"
+                  name="images"
+                  multiple
+                  onChange={onFile}
+                />
               </Button>
               <Typography variant="caption" color="text.secondary">
-                {form.images?.length ? `${form.images.length} file(s) selected` : 'No images selected'}
+                {form.images?.length
+                  ? `${form.images.length} file(s) selected`
+                  : 'No images selected'}
               </Typography>
             </Grid>
           </Grid>

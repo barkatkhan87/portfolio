@@ -19,10 +19,14 @@ const SkillsPage = () => {
 
   return (
     <>
-      <Helmet><title>Skills | Portfolio</title></Helmet>
+      <Helmet>
+        <title>Skills | Portfolio</title>
+      </Helmet>
 
-      <PageSection className="py-16 bg-white dark:bg-dark-300">
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>Skills</Typography>
+      <PageSection className="bg-white py-16 dark:bg-dark-300">
+        <Typography variant="h3" sx={{ fontWeight: 800 }}>
+          Skills
+        </Typography>
         <Typography color="text.secondary" sx={{ mt: 1, mb: 4 }}>
           Technologies I use frequently.
         </Typography>

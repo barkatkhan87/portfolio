@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
           setUser(response.data);
           setIsAuthenticated(true);
         } catch (error) {
-          console.error("Auth check failed:", error);
+          console.error('Auth check failed:', error);
           localStorage.removeItem('token');
           localStorage.removeItem('user');
           setUser(null);
@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(async (credentials) => {
     try {
       const response = await authApi.login(credentials);
-      
+
       // FIX: Ensure response.data exists before accessing properties
       const userData = response.data?.user;
       const token = response.data?.token;
@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
         setIsAuthenticated(true);
         toast.success('Login successful!');
       }
-      
+
       return response;
     } catch (error) {
       throw error;
@@ -94,9 +94,5 @@ export const AuthProvider = ({ children }) => {
     updateUser,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

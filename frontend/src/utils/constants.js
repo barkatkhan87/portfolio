@@ -1,4 +1,4 @@
-export const APP_NAME = import.meta.env.VITE_APP_NAME || 'My Portfolio'
+export const APP_NAME = import.meta.env.VITE_APP_NAME || 'My Portfolio';
 
 export const CATEGORIES = [
   { value: 'all', label: 'All Projects' },
@@ -7,7 +7,7 @@ export const CATEGORIES = [
   { value: 'desktop', label: 'Desktop Apps' },
   { value: 'api', label: 'APIs' },
   { value: 'other', label: 'Other' },
-]
+];
 
 export const SKILL_CATEGORIES = [
   { value: 'frontend', label: 'Frontend', color: '#61DAFB' },
@@ -16,15 +16,16 @@ export const SKILL_CATEGORIES = [
   { value: 'devops', label: 'DevOps', color: '#2496ED' },
   { value: 'tools', label: 'Tools', color: '#FF6C37' },
   { value: 'other', label: 'Other', color: '#667eea' },
-]
+];
 
 export const NAV_LINKS = [
   { path: '/', label: 'Home' },
   { path: '/about', label: 'About' },
   { path: '/projects', label: 'Projects' },
   { path: '/skills', label: 'Skills' },
+  { path: '/sale-projects', label: 'Sale Projects' }, 
   { path: '/contact', label: 'Contact' },
-]
+];
 
 export const ADMIN_NAV_LINKS = [
   { path: '/admin', label: 'Dashboard', icon: 'Dashboard' },
@@ -32,7 +33,8 @@ export const ADMIN_NAV_LINKS = [
   { path: '/admin/skills', label: 'Skills', icon: 'Code' },
   { path: '/admin/about', label: 'About', icon: 'Person' },
   { path: '/admin/messages', label: 'Messages', icon: 'Email' },
-]
+  { path: '/admin/sale-projects', label: 'Sale Projects', icon: 'Work' },
+];
 
 export const MESSAGE_STATUS = [
   { value: 'all', label: 'All' },
@@ -40,4 +42,4 @@ export const MESSAGE_STATUS = [
   { value: 'read', label: 'Read' },
   { value: 'replied', label: 'Replied' },
   { value: 'archived', label: 'Archived' },
-]
+];

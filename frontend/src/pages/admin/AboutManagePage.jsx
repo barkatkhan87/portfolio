@@ -63,8 +63,10 @@ const AboutManagePage = () => {
         email: form.email,
         phone: form.phone,
         location: form.location,
-        yearsOfExperience: form.yearsOfExperience === '' ? undefined : Number(form.yearsOfExperience),
-        projectsCompleted: form.projectsCompleted === '' ? undefined : Number(form.projectsCompleted),
+        yearsOfExperience:
+          form.yearsOfExperience === '' ? undefined : Number(form.yearsOfExperience),
+        projectsCompleted:
+          form.projectsCompleted === '' ? undefined : Number(form.projectsCompleted),
         happyClients: form.happyClients === '' ? undefined : Number(form.happyClients),
         socialLinks: {
           github: form.github,
@@ -75,7 +77,10 @@ const AboutManagePage = () => {
         seoTitle: form.seoTitle,
         seoDescription: form.seoDescription,
         seoKeywords: form.seoKeywords
-          ? form.seoKeywords.split(',').map((k) => k.trim()).filter(Boolean)
+          ? form.seoKeywords
+              .split(',')
+              .map((k) => k.trim())
+              .filter(Boolean)
           : [],
       };
 
@@ -120,10 +125,14 @@ const AboutManagePage = () => {
 
   return (
     <>
-      <Helmet><title>Manage About | Admin</title></Helmet>
+      <Helmet>
+        <title>Manage About | Admin</title>
+      </Helmet>
 
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 800 }}>About Settings</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 800 }}>
+          About Settings
+        </Typography>
         <Typography color="text.secondary">Update your portfolio profile content.</Typography>
       </Box>
 
@@ -140,31 +149,81 @@ const AboutManagePage = () => {
 
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Name" name="name" value={form.name} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Name"
+                      name="name"
+                      value={form.name}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Email" name="email" value={form.email} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      name="email"
+                      value={form.email}
+                      onChange={onChange}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Title" name="title" value={form.title} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Title"
+                      name="title"
+                      value={form.title}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Subtitle" name="subtitle" value={form.subtitle} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Subtitle"
+                      name="subtitle"
+                      value={form.subtitle}
+                      onChange={onChange}
+                    />
                   </Grid>
 
                   <Grid item xs={12}>
-                    <TextField fullWidth label="Short Bio (Hero)" name="shortBio" value={form.shortBio} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Short Bio (Hero)"
+                      name="shortBio"
+                      value={form.shortBio}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth multiline minRows={6} label="Bio" name="bio" value={form.bio} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={6}
+                      label="Bio"
+                      name="bio"
+                      value={form.bio}
+                      onChange={onChange}
+                    />
                   </Grid>
 
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Phone" name="phone" value={form.phone} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Phone"
+                      name="phone"
+                      value={form.phone}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Location" name="location" value={form.location} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Location"
+                      name="location"
+                      value={form.location}
+                      onChange={onChange}
+                    />
                   </Grid>
                 </Grid>
 
@@ -176,16 +235,40 @@ const AboutManagePage = () => {
 
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="GitHub URL" name="github" value={form.github} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="GitHub URL"
+                      name="github"
+                      value={form.github}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="LinkedIn URL" name="linkedin" value={form.linkedin} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="LinkedIn URL"
+                      name="linkedin"
+                      value={form.linkedin}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Twitter URL" name="twitter" value={form.twitter} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Twitter URL"
+                      name="twitter"
+                      value={form.twitter}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={6}>
-                    <TextField fullWidth label="Website URL" name="website" value={form.website} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="Website URL"
+                      name="website"
+                      value={form.website}
+                      onChange={onChange}
+                    />
                   </Grid>
                 </Grid>
 
@@ -197,23 +280,62 @@ const AboutManagePage = () => {
 
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={4}>
-                    <TextField fullWidth type="number" label="Years Experience" name="yearsOfExperience" value={form.yearsOfExperience} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label="Years Experience"
+                      name="yearsOfExperience"
+                      value={form.yearsOfExperience}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <TextField fullWidth type="number" label="Projects Completed" name="projectsCompleted" value={form.projectsCompleted} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label="Projects Completed"
+                      name="projectsCompleted"
+                      value={form.projectsCompleted}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12} md={4}>
-                    <TextField fullWidth type="number" label="Happy Clients" name="happyClients" value={form.happyClients} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      type="number"
+                      label="Happy Clients"
+                      name="happyClients"
+                      value={form.happyClients}
+                      onChange={onChange}
+                    />
                   </Grid>
 
                   <Grid item xs={12}>
-                    <TextField fullWidth label="SEO Title" name="seoTitle" value={form.seoTitle} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="SEO Title"
+                      name="seoTitle"
+                      value={form.seoTitle}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth label="SEO Description" name="seoDescription" value={form.seoDescription} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="SEO Description"
+                      name="seoDescription"
+                      value={form.seoDescription}
+                      onChange={onChange}
+                    />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField fullWidth label="SEO Keywords (comma separated)" name="seoKeywords" value={form.seoKeywords} onChange={onChange} />
+                    <TextField
+                      fullWidth
+                      label="SEO Keywords (comma separated)"
+                      name="seoKeywords"
+                      value={form.seoKeywords}
+                      onChange={onChange}
+                    />
                   </Grid>
                 </Grid>
 
@@ -244,7 +366,12 @@ const AboutManagePage = () => {
 
                 <Button variant="outlined" component="label" fullWidth>
                   Choose Avatar
-                  <input hidden type="file" accept="image/*" onChange={(e) => setAvatarFile(e.target.files?.[0] || null)} />
+                  <input
+                    hidden
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => setAvatarFile(e.target.files?.[0] || null)}
+                  />
                 </Button>
                 <Typography variant="caption" color="text.secondary">
                   {avatarFile?.name || 'No file selected'}
@@ -260,7 +387,12 @@ const AboutManagePage = () => {
 
                 <Button variant="outlined" component="label" fullWidth sx={{ mt: 1 }}>
                   Choose Resume
-                  <input hidden type="file" accept="application/pdf" onChange={(e) => setResumeFile(e.target.files?.[0] || null)} />
+                  <input
+                    hidden
+                    type="file"
+                    accept="application/pdf"
+                    onChange={(e) => setResumeFile(e.target.files?.[0] || null)}
+                  />
                 </Button>
                 <Typography variant="caption" color="text.secondary">
                   {resumeFile?.name || 'No file selected'}

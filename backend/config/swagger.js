@@ -158,6 +158,128 @@ Most admin endpoints require a Bearer token. Use the **Authorize** button to set
           },
         },
 
+        SaleProject: {
+          type: 'object',
+          properties: {
+            _id: { type: 'string', example: '507f1f77bcf86cd799439011' },
+            title: { type: 'string', example: 'E-Commerce Website for Sale' },
+            slug: { type: 'string', example: 'e-commerce-website-for-sale' },
+            shortDescription: {
+              type: 'string',
+              example: 'Ready-made MERN e-commerce template with Stripe integration.',
+            },
+            description: {
+              type: 'string',
+              example: 'Full detailed description of the sale project...',
+            },
+            price: { type: 'number', example: 1999 },
+            currency: { type: 'string', enum: ['INR', 'USD'], example: 'INR' },
+            category: {
+              type: 'string',
+              enum: ['web', 'mobile', 'desktop', 'api', 'ui', 'other'],
+              example: 'web',
+            },
+            technologies: {
+              type: 'array',
+              items: { type: 'string' },
+              example: ['React', 'Node.js', 'MongoDB'],
+            },
+            duration: { type: 'string', example: '3 Days' },
+            implementationGuide: {
+              type: 'string',
+              example: '1. Clone repository\n2. Run npm install\n3. Configure env\n4. Run npm start',
+            },
+            features: {
+              type: 'array',
+              items: { type: 'string' },
+              example: ['Authentication', 'Admin Panel', 'Stripe Payments'],
+            },
+            includes: {
+              type: 'array',
+              items: { type: 'string' },
+              example: ['Source code', 'Setup guide (PDF)', '1 week support'],
+            },
+            demoUrl: { type: 'string', format: 'uri', example: 'https://example.com/demo' },
+            githubUrl: { type: 'string', format: 'uri', example: 'https://github.com/user/repo' },
+            contactUrl: {
+              type: 'string',
+              format: 'uri',
+              example: 'https://wa.me/919999999999?text=I%20want%20to%20buy%20this%20project',
+            },
+            thumbnail: {
+              type: 'object',
+              properties: {
+                public_id: { type: 'string' },
+                url: { type: 'string', format: 'uri' },
+              },
+            },
+            images: {
+              type: 'array',
+              items: {
+                type: 'object',
+                properties: {
+                  public_id: { type: 'string' },
+                  url: { type: 'string', format: 'uri' },
+                },
+              },
+            },
+            isVisible: { type: 'boolean', example: true },
+            isFeatured: { type: 'boolean', example: false },
+            order: { type: 'integer', example: 0 },
+            createdAt: { type: 'string', format: 'date-time' },
+            updatedAt: { type: 'string', format: 'date-time' },
+          },
+        },
+          
+        SaleProjectInput: {
+          type: 'object',
+          properties: {
+            title: { type: 'string', example: 'E-Commerce Website for Sale' },
+            shortDescription: {
+              type: 'string',
+              example: 'Ready-made MERN e-commerce template with Stripe integration.',
+            },
+            description: {
+              type: 'string',
+              example: 'Full detailed description of the sale project...',
+            },
+            price: { type: 'number', example: 1999 },
+            currency: { type: 'string', enum: ['INR', 'USD'], example: 'INR' },
+            category: {
+              type: 'string',
+              enum: ['web', 'mobile', 'desktop', 'api', 'ui', 'other'],
+              example: 'web',
+            },
+            technologies: {
+              type: 'string',
+              example: 'React, Node.js, MongoDB, Express, Stripe',
+            },
+            duration: { type: 'string', example: '3 Days' },
+            implementationGuide: {
+              type: 'string',
+              example: '1. Clone repo\n2. Install dependencies\n3. Configure env\n4. Run app',
+            },
+            features: {
+              type: 'string',
+              example: 'Login system\nAdmin panel\nStripe payments\nOrder management',
+            },
+            includes: {
+              type: 'string',
+              example: 'Source code\nSetup docs\nDatabase schema\n1 week support',
+            },
+            demoUrl: { type: 'string', format: 'uri', example: 'https://example.com/demo' },
+            githubUrl: { type: 'string', format: 'uri', example: 'https://github.com/user/repo' },
+            contactUrl: {
+              type: 'string',
+              format: 'uri',
+              example: 'https://wa.me/919999999999?text=I%20want%20to%20buy%20this%20project',
+            },
+            isVisible: { type: 'boolean', example: true },
+            isFeatured: { type: 'boolean', example: false },
+            order: { type: 'integer', example: 0 },
+          },
+        },
+
         // About Schema
         About: {
           type: 'object',

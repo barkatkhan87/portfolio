@@ -23,7 +23,7 @@ export const ThemeProvider = ({ children }) => {
         return 'dark';
       }
     } catch (e) {
-      console.warn("Theme detection failed", e);
+      console.warn('Theme detection failed', e);
     }
     return 'light'; // Default fallback
   });
@@ -31,7 +31,7 @@ export const ThemeProvider = ({ children }) => {
   useEffect(() => {
     try {
       localStorage.setItem('theme', theme);
-      
+
       const root = window.document.documentElement;
       if (theme === 'dark') {
         root.classList.add('dark');
@@ -39,7 +39,7 @@ export const ThemeProvider = ({ children }) => {
         root.classList.remove('dark');
       }
     } catch (e) {
-      console.error("Error setting theme", e);
+      console.error('Error setting theme', e);
     }
   }, [theme]);
 
@@ -54,9 +54,5 @@ export const ThemeProvider = ({ children }) => {
     isDark: theme === 'dark',
   };
 
-  return (
-    <ThemeContext.Provider value={value}>
-      {children}
-    </ThemeContext.Provider>
-  );
+  return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 };

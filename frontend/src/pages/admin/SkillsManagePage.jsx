@@ -113,14 +113,20 @@ const SkillsManagePage = () => {
 
   return (
     <>
-      <Helmet><title>Manage Skills | Admin</title></Helmet>
+      <Helmet>
+        <title>Manage Skills | Admin</title>
+      </Helmet>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
-          <Typography variant="h4" sx={{ fontWeight: 800 }}>Skills</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 800 }}>
+            Skills
+          </Typography>
           <Typography color="text.secondary">Create, edit, and organize your skills.</Typography>
         </Box>
-        <Button variant="contained" onClick={onOpenCreate}>Add Skill</Button>
+        <Button variant="contained" onClick={onOpenCreate}>
+          Add Skill
+        </Button>
       </Box>
 
       <Box sx={{ mb: 3, maxWidth: 300 }}>
@@ -133,7 +139,9 @@ const SkillsManagePage = () => {
         >
           <MenuItem value="all">All</MenuItem>
           {SKILL_CATEGORIES.map((c) => (
-            <MenuItem key={c.value} value={c.value}>{c.label}</MenuItem>
+            <MenuItem key={c.value} value={c.value}>
+              {c.label}
+            </MenuItem>
           ))}
         </TextField>
       </Box>
@@ -154,18 +162,19 @@ const SkillsManagePage = () => {
                 <Box sx={{ mt: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FormControlLabel
                     control={
-                      <Switch
-                        checked={!!s.isVisible}
-                        onChange={() => onToggleVisibility(s._id)}
-                      />
+                      <Switch checked={!!s.isVisible} onChange={() => onToggleVisibility(s._id)} />
                     }
                     label={s.isVisible ? 'Visible' : 'Hidden'}
                   />
                 </Box>
 
                 <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-                  <Button size="small" onClick={() => onOpenEdit(s)}>Edit</Button>
-                  <Button size="small" color="error" onClick={() => onDelete(s._id)}>Delete</Button>
+                  <Button size="small" onClick={() => onOpenEdit(s)}>
+                    Edit
+                  </Button>
+                  <Button size="small" color="error" onClick={() => onDelete(s._id)}>
+                    Delete
+                  </Button>
                 </Box>
               </CardContent>
             </Card>
@@ -184,13 +193,28 @@ const SkillsManagePage = () => {
         <DialogContent dividers>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <TextField fullWidth label="Skill Name" name="name" value={form.name} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Skill Name"
+                name="name"
+                value={form.name}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField select fullWidth label="Category" name="category" value={form.category} onChange={onChange}>
+              <TextField
+                select
+                fullWidth
+                label="Category"
+                name="category"
+                value={form.category}
+                onChange={onChange}
+              >
                 {SKILL_CATEGORIES.map((c) => (
-                  <MenuItem key={c.value} value={c.value}>{c.label}</MenuItem>
+                  <MenuItem key={c.value} value={c.value}>
+                    {c.label}
+                  </MenuItem>
                 ))}
               </TextField>
             </Grid>
@@ -208,15 +232,34 @@ const SkillsManagePage = () => {
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Icon (optional)" name="icon" value={form.icon} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Icon (optional)"
+                name="icon"
+                value={form.icon}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth label="Color (hex)" name="color" value={form.color} onChange={onChange} />
+              <TextField
+                fullWidth
+                label="Color (hex)"
+                name="color"
+                value={form.color}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>
-              <TextField fullWidth type="number" label="Order" name="order" value={form.order} onChange={onChange} />
+              <TextField
+                fullWidth
+                type="number"
+                label="Order"
+                name="order"
+                value={form.order}
+                onChange={onChange}
+              />
             </Grid>
 
             <Grid item xs={12} sm={6}>

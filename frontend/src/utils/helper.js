@@ -4,12 +4,12 @@ export const formatDate = (date, options = {}) => {
     month: 'long',
     day: 'numeric',
     ...options,
-  }
-  return new Date(date).toLocaleDateString('en-US', defaultOptions)
-}
+  };
+  return new Date(date).toLocaleDateString('en-US', defaultOptions);
+};
 
 export const timeAgo = (date) => {
-  const seconds = Math.floor((new Date() - new Date(date)) / 1000)
+  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
 
   const intervals = [
     { label: 'year', seconds: 31536000 },
@@ -19,32 +19,32 @@ export const timeAgo = (date) => {
     { label: 'hour', seconds: 3600 },
     { label: 'minute', seconds: 60 },
     { label: 'second', seconds: 1 },
-  ]
+  ];
 
   for (const interval of intervals) {
-    const count = Math.floor(seconds / interval.seconds)
+    const count = Math.floor(seconds / interval.seconds);
     if (count >= 1) {
-      return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`
+      return `${count} ${interval.label}${count > 1 ? 's' : ''} ago`;
     }
   }
-  return 'just now'
-}
+  return 'just now';
+};
 
 export const truncate = (str, length = 100) => {
-  if (!str) return ''
-  if (str.length <= length) return str
-  return str.slice(0, length) + '...'
-}
+  if (!str) return '';
+  if (str.length <= length) return str;
+  return str.slice(0, length) + '...';
+};
 
 export const getInitials = (name) => {
-  if (!name) return ''
+  if (!name) return '';
   return name
     .split(' ')
     .map((n) => n[0])
     .join('')
     .toUpperCase()
-    .slice(0, 2)
-}
+    .slice(0, 2);
+};
 
 export const getCategoryColor = (category) => {
   const colors = {
@@ -56,6 +56,6 @@ export const getCategoryColor = (category) => {
     other: '#667eea',
     web: '#667eea',
     mobile: '#a855f7',
-  }
-  return colors[category] || '#667eea'
-}
+  };
+  return colors[category] || '#667eea';
+};

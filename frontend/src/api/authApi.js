@@ -4,7 +4,7 @@ export const authApi = {
   login: async (credentials) => {
     // 1. Send request
     const res = await api.post('/auth/login', credentials);
-    console.log(res)
+    console.log(res);
 
     // 2. Extract data safely
     // Backend returns: { success: true, data: { user: {...}, token: "..." } }
@@ -24,7 +24,7 @@ export const authApi = {
     try {
       await api.post('/auth/logout');
     } catch (error) {
-      console.error("Logout failed", error);
+      console.error('Logout failed', error);
     } finally {
       // Always clear local storage even if server call fails
       localStorage.removeItem('token');

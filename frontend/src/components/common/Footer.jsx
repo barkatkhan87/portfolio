@@ -1,33 +1,33 @@
-import { Link } from 'react-router-dom'
-import {
-  Container,
-  Grid,
-  Typography,
-  IconButton,
-  Box,
-  Divider,
-  Tooltip,
-} from '@mui/material'
-import { GitHub, LinkedIn, X, Email } from '@mui/icons-material'
+import { Link } from 'react-router-dom';
+import { Container, Grid, Typography, IconButton, Box, Divider, Tooltip } from '@mui/material';
+import { GitHub, LinkedIn, X, Email } from '@mui/icons-material';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   const socialLinks = [
     { name: 'GitHub', icon: GitHub, url: 'https://github.com/barkatkhan87' },
-    { name: 'LinkedIn', icon: LinkedIn, url: 'https://www.linkedin.com/in/barkat-khan-187790318?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
+    {
+      name: 'LinkedIn',
+      icon: LinkedIn,
+      url: 'https://www.linkedin.com/in/barkat-khan-187790318?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
+    },
     { name: 'X', icon: X, url: 'https://x.com/barkatkhan_' },
-    { name: 'Email', icon: Email, url: 'mailto:salabcomputer@gmail.com?subject=Hello%20Barkat&body=I%20saw%20your%20portfolio' },
-  ]
+    {
+      name: 'Email',
+      icon: Email,
+      url: 'mailto:salabcomputer@gmail.com?subject=Hello%20Barkat&body=I%20saw%20your%20portfolio',
+    },
+  ];
 
   return (
-    <footer className="bg-gray-50 dark:bg-dark-200 mt-auto">
+    <footer className="mt-auto bg-gray-50 dark:bg-dark-200">
       <Container maxWidth="xl">
         <Box py={6}>
           <Grid container spacing={4}>
             {/* Left Section */}
             <Grid item xs={12} md={6}>
-              <Typography variant="h5" className="font-heading font-bold gradient-text mb-4">
+              <Typography variant="h5" className="gradient-text mb-4 font-heading font-bold">
                 Portfolio
               </Typography>
               <Typography variant="body2" color="text.secondary" paragraph>
@@ -58,9 +58,12 @@ const Footer = () => {
               <Typography variant="h6" fontWeight={600} gutterBottom>
                 Quick Links
               </Typography>
-              {['/', '/about', '/projects', '/contact'].map((path) => (
+              {['/', '/about', '/projects', '/contact', '/sale-projects'].map((path) => (
                 <Box key={path} mb={1}>
-                  <Link to={path} className="text-gray-600 hover:text-primary-600 transition-colors">
+                  <Link
+                    to={path}
+                    className="text-gray-600 transition-colors hover:text-primary-600"
+                  >
                     {path === '/' ? 'Home' : path.slice(1).charAt(0).toUpperCase() + path.slice(2)}
                   </Link>
                 </Box>
@@ -79,7 +82,7 @@ const Footer = () => {
         </Box>
       </Container>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

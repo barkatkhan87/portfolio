@@ -30,12 +30,12 @@ const LoginPage = () => {
       // Login successful, go to dashboard
       navigate('/admin');
     } catch (err) {
-      console.error("Login failed", err);
+      console.error('Login failed', err);
       // Handle the error gracefully
       if (err.response?.status === 401) {
-        setError("Invalid email or password.");
+        setError('Invalid email or password.');
       } else {
-        setError("Login failed. Check server connection.");
+        setError('Login failed. Check server connection.');
       }
     } finally {
       setLoading(false);
@@ -44,8 +44,10 @@ const LoginPage = () => {
 
   return (
     <>
-      <Helmet><title>Admin Login</title></Helmet>
-      <Box className="min-h-screen w-full flex items-center justify-center bg-gray-50 dark:bg-dark-300 p-4">
+      <Helmet>
+        <title>Admin Login</title>
+      </Helmet>
+      <Box className="flex min-h-screen w-full items-center justify-center bg-gray-50 p-4 dark:bg-dark-300">
         <Container maxWidth="sm">
           <Paper sx={{ p: 4, borderRadius: 3 }}>
             <Typography variant="h4" sx={{ fontWeight: 800 }}>

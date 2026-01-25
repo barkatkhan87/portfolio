@@ -23,10 +23,14 @@ const ContactPage = () => {
 
   return (
     <>
-      <Helmet><title>Contact | Portfolio</title></Helmet>
+      <Helmet>
+        <title>Contact | Portfolio</title>
+      </Helmet>
 
-      <PageSection className="py-16 bg-white dark:bg-dark-300">
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>Contact</Typography>
+      <PageSection className="bg-white py-16 dark:bg-dark-300">
+        <Typography variant="h3" sx={{ fontWeight: 800 }}>
+          Contact
+        </Typography>
         <Typography color="text.secondary" sx={{ mt: 1, mb: 4 }}>
           Let’s talk about your idea or project.
         </Typography>
@@ -38,13 +42,35 @@ const ContactPage = () => {
                 <Box component="form" onSubmit={onSubmit}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="Name" name="name" value={values.name} onChange={onChange} required />
+                      <TextField
+                        fullWidth
+                        label="Name"
+                        name="name"
+                        value={values.name}
+                        onChange={onChange}
+                        required
+                      />
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <TextField fullWidth label="Email" name="email" type="email" value={values.email} onChange={onChange} required />
+                      <TextField
+                        fullWidth
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={values.email}
+                        onChange={onChange}
+                        required
+                      />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField fullWidth label="Subject" name="subject" value={values.subject} onChange={onChange} required />
+                      <TextField
+                        fullWidth
+                        label="Subject"
+                        name="subject"
+                        value={values.subject}
+                        onChange={onChange}
+                        required
+                      />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -72,7 +98,9 @@ const ContactPage = () => {
           <Grid item xs={12} md={5}>
             <Card className="card">
               <CardContent>
-                <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>Contact Info</Typography>
+                <Typography variant="h6" sx={{ fontWeight: 800, mb: 1 }}>
+                  Contact Info
+                </Typography>
                 <Typography color="text.secondary">Use the form or email me directly.</Typography>
                 <Box sx={{ mt: 2 }}>
                   <Typography sx={{ fontWeight: 600 }}>Email</Typography>

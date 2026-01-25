@@ -17,6 +17,7 @@ import {
   TextField,
   Checkbox,
   FormControlLabel,
+  Stack,
 } from '@mui/material';
 import { Star, StarBorder, Delete } from '@mui/icons-material';
 import { messageApi } from '../../api/messageApi';
@@ -50,10 +51,14 @@ const MessagesPage = () => {
   const messages = data.messages || [];
 
   const toggleSelect = (id) => {
-    setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
   };
 
-  const allSelected = useMemo(() => selectedIds.length === messages.length && messages.length > 0, [selectedIds, messages]);
+  const allSelected =
+    selectedIds.length === messages.length && messages.length > 0;
+
   const toggleSelectAll = () => {
     if (allSelected) setSelectedIds([]);
     else setSelectedIds(messages.map((m) => m._id));
@@ -105,13 +110,21 @@ const MessagesPage = () => {
 
   return (
     <>
-      <Helmet><title>Messages | Admin</title></Helmet>
+      <Helmet>
+        <title>Messages | Admin</title>
+      </Helmet>
 
+      {/* Header */}
       <Box sx={{ mb: 3 }}>
-        <Typography variant="h4" sx={{ fontWeight: 800 }}>Messages</Typography>
-        <Typography color="text.secondary">View and manage contact messages.</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 800 }}>
+          Messages
+        </Typography>
+        <Typography color="text.secondary">
+          View and manage contact messages.
+        </Typography>
       </Box>
 
+      {/* Filters + Bulk actions */}
       <Grid container spacing={2} sx={{ mb: 2 }}>
         <Grid item xs={12} md={3}>
           <TextField
@@ -120,58 +133,151 @@ const MessagesPage = () => {
             label="Status"
             value={status}
             onChange={(e) => setStatus(e.target.value)}
+            size="small"
           >
             {MESSAGE_STATUS.map((s) => (
-              <MenuItem key={s.value} value={s.value}>{s.label}</MenuItem>
+              <MenuItem key={s.value} value={s.value}>
+                {s.label}
+              </MenuItem>
             ))}
           </TextField>
         </Grid>
 
-        <Grid item xs={12} md={3} sx={{ display: 'flex', alignItems: 'center' }}>
+        <Grid item xs={12} md={3}>
           <FormControlLabel
-            control={<Checkbox checked={starredOnly} onChange={(e) => setStarredOnly(e.target.checked)} />}
+            control={
+              <Checkbox
+                checked={starredOnly}
+                onChange={(e) => setStarredOnly(e.target.checked)}
+              />
+            }
             label="Starred only"
           />
         </Grid>
 
-        <Grid item xs={12} md={6} sx={{ display: 'flex', gap: 1, justifyContent: { xs: 'flex-start', md: 'flex-end' } }}>
-          <Button variant="outlined" onClick={toggleSelectAll}>
-            {allSelected ? 'Unselect All' : 'Select All'}
-          </Button>
-          <Button variant="outlined" onClick={bulkMarkRead} disabled={selectedIds.length === 0}>
-            Mark Read
-          </Button>
-          <Button variant="contained" color="error" onClick={bulkDelete} disabled={selectedIds.length === 0}>
-            Delete Selected
-          </Button>
+        <Grid item xs={12} md={6}>
+          {/* Responsive bulk actions */}
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={1}
+            justifyContent={{ xs: 'flex-start', md: 'flex-end' }}
+            alignItems={{ xs: 'stretch', sm: 'center' }}
+          >
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={toggleSelectAll}
+            >
+              {allSelected ? 'Unselect All' : 'Select All'}
+            </Button>
+            <Button
+              variant="outlined"
+              size="small"
+              onClick={bulkMarkRead}
+              disabled={selectedIds.length === 0}
+            >
+              Mark Read
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              size="small"
+              onClick={bulkDelete}
+              disabled={selectedIds.length === 0}
+            >
+              Delete Selected
+            </Button>
+          </Stack>
         </Grid>
       </Grid>
 
+      {/* Messages List */}
       <Grid container spacing={2}>
         {messages.map((m) => (
           <Grid item xs={12} key={m._id}>
             <Card className="card">
-              <CardContent sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                <Checkbox checked={selectedIds.includes(m._id)} onChange={() => toggleSelect(m._id)} />
+              <CardContent
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 1,
+                }}
+              >
+                {/* Row 1: Checkbox + Subject + From */}
+                <Box
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 1,
+                  }}
+                >
+                  <Checkbox
+                    checked={selectedIds.includes(m._id)}
+                    onChange={() => toggleSelect(m._id)}
+                    sx={{ mt: -0.5 }}
+                  />
 
-                <Box sx={{ flex: 1, cursor: 'pointer' }} onClick={() => openMessage(m._id)}>
-                  <Typography sx={{ fontWeight: m.status === 'unread' ? 900 : 700 }}>
-                    {m.subject}
-                  </Typography>
-                  <Typography color="text.secondary">
-                    {m.name} — {m.email}
-                  </Typography>
+                  <Box
+                    sx={{ flex: 1, cursor: 'pointer' }}
+                    onClick={() => openMessage(m._id)}
+                  >
+                    <Typography
+                      sx={{
+                        fontWeight: m.status === 'unread' ? 900 : 700,
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                      }}
+                    >
+                      {m.subject}
+                    </Typography>
+                    <Typography
+                      color="text.secondary"
+                      sx={{
+                        fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                      }}
+                    >
+                      {m.name} — {m.email}
+                    </Typography>
+                  </Box>
                 </Box>
 
-                <Chip size="small" label={m.status} color={badgeColor(m.status)} />
+                {/* Row 2: Status + Star/Delete (responsive) */}
+                <Box
+                  sx={{
+                    mt: 0.5,
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: 1,
+                  }}
+                >
+                  <Chip
+                    size="small"
+                    label={m.status}
+                    color={badgeColor(m.status)}
+                  />
 
-                <IconButton onClick={() => toggleStar(m._id)}>
-                  {m.isStarred ? <Star color="warning" /> : <StarBorder />}
-                </IconButton>
+                  <Box sx={{ display: 'flex', gap: 0.5 }}>
+                    <IconButton
+                      size="small"
+                      onClick={() => toggleStar(m._id)}
+                    >
+                      {m.isStarred ? (
+                        <Star color="warning" />
+                      ) : (
+                        <StarBorder />
+                      )}
+                    </IconButton>
 
-                <IconButton onClick={() => deleteOne(m._id)} color="error">
-                  <Delete />
-                </IconButton>
+                    <IconButton
+                      size="small"
+                      color="error"
+                      onClick={() => deleteOne(m._id)}
+                    >
+                      <Delete fontSize="small" />
+                    </IconButton>
+                  </Box>
+                </Box>
               </CardContent>
             </Card>
           </Grid>
@@ -179,11 +285,14 @@ const MessagesPage = () => {
 
         {messages.length === 0 && (
           <Grid item xs={12}>
-            <Typography color="text.secondary">No messages found.</Typography>
+            <Typography color="text.secondary">
+              No messages found.
+            </Typography>
           </Grid>
         )}
       </Grid>
 
+      {/* Message Detail Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)} fullWidth maxWidth="md">
         <DialogTitle>Message</DialogTitle>
         <DialogContent dividers>
@@ -191,7 +300,9 @@ const MessagesPage = () => {
             <Typography color="text.secondary">Loading...</Typography>
           ) : (
             <>
-              <Typography sx={{ fontWeight: 900 }}>{activeMessage.subject}</Typography>
+              <Typography sx={{ fontWeight: 900 }}>
+                {activeMessage.subject}
+              </Typography>
               <Typography color="text.secondary" sx={{ mt: 1 }}>
                 From: {activeMessage.name} ({activeMessage.email})
               </Typography>
@@ -207,16 +318,45 @@ const MessagesPage = () => {
             </>
           )}
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ flexWrap: 'wrap', gap: 1 }}>
           {activeMessage && (
             <>
-              <Button onClick={() => changeStatus(activeMessage._id, 'read')}>Mark Read</Button>
-              <Button onClick={() => changeStatus(activeMessage._id, 'replied')}>Mark Replied</Button>
-              <Button onClick={() => changeStatus(activeMessage._id, 'archived')}>Archive</Button>
-              <Button color="error" onClick={() => deleteOne(activeMessage._id)}>Delete</Button>
+              <Button
+                size="small"
+                onClick={() =>
+                  changeStatus(activeMessage._id, 'read')
+                }
+              >
+                Mark Read
+              </Button>
+              <Button
+                size="small"
+                onClick={() =>
+                  changeStatus(activeMessage._id, 'replied')
+                }
+              >
+                Mark Replied
+              </Button>
+              <Button
+                size="small"
+                onClick={() =>
+                  changeStatus(activeMessage._id, 'archived')
+                }
+              >
+                Archive
+              </Button>
+              <Button
+                size="small"
+                color="error"
+                onClick={() => deleteOne(activeMessage._id)}
+              >
+                Delete
+              </Button>
             </>
           )}
-          <Button variant="contained" onClick={() => setOpen(false)}>Close</Button>
+          <Button variant="contained" onClick={() => setOpen(false)}>
+            Close
+          </Button>
         </DialogActions>
       </Dialog>
     </>

@@ -2,7 +2,6 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -14,6 +13,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -24,10 +24,10 @@ a:hover {
 }
 
 body {
-    @apply bg-white text-gray-900;
-    @apply dark:bg-slate-900 dark:text-gray-100;
-    @apply transition-colors duration-300 ease-in-out;
-  }
+  @apply bg-white text-gray-900;
+  @apply dark:bg-slate-900 dark:text-gray-100;
+  @apply transition-colors duration-300 ease-in-out;
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
@@ -74,7 +74,6 @@ button:focus-visible {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    
   }
 
   html {
@@ -85,10 +84,17 @@ button:focus-visible {
     @apply font-sans antialiased;
     @apply bg-white text-gray-900;
     @apply dark:bg-dark-300 dark:text-gray-100;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-heading font-bold;
   }
 
@@ -107,7 +113,7 @@ button:focus-visible {
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 dark:bg-gray-600 rounded-full;
+    @apply rounded-full bg-gray-300 dark:bg-gray-600;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -118,7 +124,7 @@ button:focus-visible {
 /* Custom Component Styles */
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 font-medium rounded-lg transition-all duration-200;
+    @apply inline-flex items-center justify-center rounded-lg px-6 py-3 font-medium transition-all duration-200;
     @apply focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
@@ -139,21 +145,21 @@ button:focus-visible {
   }
 
   .input {
-    @apply w-full px-4 py-3 rounded-lg border transition-all duration-200;
+    @apply w-full rounded-lg border px-4 py-3 transition-all duration-200;
     @apply border-gray-300 bg-white text-gray-900;
-    @apply focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-500;
     @apply dark:border-gray-600 dark:bg-dark-200 dark:text-white;
     @apply placeholder:text-gray-400 dark:placeholder:text-gray-500;
   }
 
   .card {
-    @apply bg-white rounded-xl shadow-lg overflow-hidden;
+    @apply overflow-hidden rounded-xl bg-white shadow-lg;
     @apply dark:bg-dark-100;
     @apply transition-all duration-300;
   }
 
   .card-hover {
-    @apply card hover:shadow-xl hover:-translate-y-1;
+    @apply card hover:-translate-y-1 hover:shadow-xl;
   }
 
   .section {
@@ -161,11 +167,11 @@ button:focus-visible {
   }
 
   .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600;
+    @apply bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent;
   }
 
   .gradient-bg {
@@ -173,7 +179,7 @@ button:focus-visible {
   }
 
   .glass {
-    @apply backdrop-blur-md bg-white/80 dark:bg-dark-200/80;
+    @apply bg-white/80 backdrop-blur-md dark:bg-dark-200/80;
   }
 }
 
@@ -188,5 +194,5 @@ button:focus-visible {
   }
 }
 .MuiContainer-root {
-    display: block !important;
-  }
+  display: block !important;
+}

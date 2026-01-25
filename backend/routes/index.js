@@ -7,6 +7,7 @@ import skillRoutes from './skillRoutes.js';
 import aboutRoutes from './aboutRoutes.js';
 import messageRoutes from './messageRoutes.js';
 import dashboardRoutes from './dashboardRoutes.js';
+import saleProjectRoutes from './saleProjectRoutes.js';
 
 const router = express.Router();
 
@@ -27,5 +28,6 @@ router.use('/skills', skillRoutes);
 router.use('/about', aboutRoutes);
 router.use('/messages', messageRoutes);
 router.use('/dashboard', dashboardRoutes);
+router.use('/sale-projects', saleProjectRoutes);
 
 export default router;

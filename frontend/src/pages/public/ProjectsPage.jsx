@@ -1,6 +1,16 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Box, Typography, Grid, Card, CardMedia, CardContent, Button, TextField, MenuItem } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Button,
+  TextField,
+  MenuItem,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import PageSection from '../../components/common/PageSection';
 import { projectApi } from '../../api/projectApi';
@@ -22,19 +32,23 @@ const ProjectsPage = () => {
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     if (!q) return projects;
-    return projects.filter((p) =>
-      (p.title || '').toLowerCase().includes(q) ||
-      (p.description || '').toLowerCase().includes(q)
+    return projects.filter(
+      (p) =>
+        (p.title || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q)
     );
   }, [projects, search]);
 
   return (
     <>
-      <Helmet><title>Projects | Portfolio</title></Helmet>
+      <Helmet>
+        <title>Projects | Portfolio</title>
+      </Helmet>
 
-      <PageSection className="py-16 bg-white dark:bg-dark-300">
+      <PageSection className="bg-white py-16 dark:bg-dark-300">
         <Box sx={{ mb: 3 }}>
-          <Typography variant="h3" sx={{ fontWeight: 800 }}>Projects</Typography>
+          <Typography variant="h3" sx={{ fontWeight: 800 }}>
+            Projects
+          </Typography>
           <Typography color="text.secondary">Browse my work.</Typography>
         </Box>
 

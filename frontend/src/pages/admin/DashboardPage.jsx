@@ -27,7 +27,9 @@ const DashboardPage = () => {
 
   return (
     <>
-      <Helmet><title>Dashboard | Admin</title></Helmet>
+      <Helmet>
+        <title>Dashboard | Admin</title>
+      </Helmet>
 
       <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>
         Dashboard

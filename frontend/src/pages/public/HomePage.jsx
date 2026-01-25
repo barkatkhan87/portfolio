@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
+import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Typography,
@@ -10,16 +10,15 @@ import {
   CardMedia,
   Chip,
   Stack,
-  Tooltip
-} from "@mui/material";
-import { Link } from "react-router-dom";
-import PageSection from "../../components/common/PageSection";
-import { aboutApi } from "../../api/aboutApi";
-import { projectApi } from "../../api/projectApi";
-import Spline from "@splinetool/react-spline"
+  Tooltip,
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import PageSection from '../../components/common/PageSection';
+import { aboutApi } from '../../api/aboutApi';
+import { projectApi } from '../../api/projectApi';
+import Spline from '@splinetool/react-spline';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
 
 const HomePage = () => {
   const [about, setAbout] = useState(null);
@@ -27,12 +26,12 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
 
   // transitions
-    useEffect(()=>{
-      AOS.init({
-        duration: 1000,
-        once: true,
-      })
-    })
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+    });
+  });
 
   useEffect(() => {
     const load = async () => {
@@ -57,7 +56,7 @@ const HomePage = () => {
       </Helmet>
 
       {/* HERO */}
-      <PageSection className="min-h-[85vh] flex items-center justify-center bg-white dark:bg-dark-300">
+      <PageSection className="flex min-h-[85vh] items-center justify-center bg-white dark:bg-dark-300">
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={7}>
             <Typography
@@ -66,24 +65,18 @@ const HomePage = () => {
               sx={{ fontWeight: 800, lineHeight: 1.1 }}
               className="font-heading"
             >
-              {about?.title || "Full Stack Developer"}
+              {about?.title || 'Full Stack Developer'}
               <br />
-              <span className="gradient-text">
-                {about?.subtitle || "MERN Stack Specialist"}
-              </span>
+              <span className="gradient-text">{about?.subtitle || 'MERN Stack Specialist'}</span>
             </Typography>
 
-            <Typography 
-              variant="h6"
-              color="text.secondary"
-              sx={{ mt: 2, maxWidth: 640 }}
-            >
+            <Typography variant="h6" color="text.secondary" sx={{ mt: 2, maxWidth: 640 }}>
               {about?.shortBio ||
-                "Building modern web applications with MERN stack. Clean UI, solid backend, scalable architecture."}
+                'Building modern web applications with MERN stack. Clean UI, solid backend, scalable architecture.'}
             </Typography>
 
-            <Stack direction="row" spacing={2} sx={{ mt: 4, flexWrap: "wrap" }}>
-              <Button 
+            <Stack direction="row" spacing={2} sx={{ mt: 4, flexWrap: 'wrap' }}>
+              <Button
                 data-aos="fade-up"
                 component={Link}
                 to="/projects"
@@ -104,11 +97,7 @@ const HomePage = () => {
             </Stack>
 
             {(about?.socialLinks?.github || about?.socialLinks?.linkedin) && (
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{ mt: 3, flexWrap: "wrap" }}
-              >
+              <Stack direction="row" spacing={1} sx={{ mt: 3, flexWrap: 'wrap' }}>
                 {about?.socialLinks?.github && (
                   <Tooltip title="GitHub Profile" arrow>
                     <Chip
@@ -139,8 +128,8 @@ const HomePage = () => {
 
           <Grid item xs={12} md={5}>
             {/* simple hero visual */}
-            <Box className="w-full flex justify-center md:justify-end">
-              <Box className="w-[320px] h-[320px] rounded-2xl gradient-bg shadow-2xl flex items-center justify-center">
+            <Box className="flex w-full justify-center md:justify-end">
+              <Box className="gradient-bg flex h-[320px] w-[320px] items-center justify-center rounded-2xl shadow-2xl">
                 <Spline scene="https://prod.spline.design/9-Ahp9wVmpoaofsI/scene.splinecode" />
               </Box>
             </Box>
@@ -149,33 +138,24 @@ const HomePage = () => {
       </PageSection>
 
       {/* FEATURED */}
-      <PageSection className="py-16 bg-gray-50 dark:bg-dark-200">
+      <PageSection className="bg-gray-50 py-16 dark:bg-dark-200">
         <Box sx={{ mb: 4 }}>
           <Typography variant="h4" sx={{ fontWeight: 800 }}>
             Featured Projects
           </Typography>
-          <Typography color="text.secondary">
-            A few projects I’m proud of.
-          </Typography>
+          <Typography color="text.secondary">A few projects I’m proud of.</Typography>
         </Box>
 
         {loading ? (
           <Typography color="text.secondary">Loading...</Typography>
         ) : featured.length === 0 ? (
-          <Typography color="text.secondary">
-            No featured projects yet.
-          </Typography>
+          <Typography color="text.secondary">No featured projects yet.</Typography>
         ) : (
           <Grid container spacing={3}>
             {featured.map((p) => (
               <Grid data-aos="fade-up" item xs={12} sm={6} md={4} key={p._id}>
                 <Card className="card-hover">
-                  <CardMedia
-                    component="img"
-                    height="180"
-                    image={p.thumbnail?.url}
-                    alt={p.title}
-                  />
+                  <CardMedia component="img" height="180" image={p.thumbnail?.url} alt={p.title} />
                   <CardContent>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                       {p.title}
@@ -184,11 +164,7 @@ const HomePage = () => {
                       {p.description}
                     </Typography>
                     <Box sx={{ mt: 2 }}>
-                      <Button
-                        component={Link}
-                        to={`/projects/${p.slug}`}
-                        size="small"
-                      >
+                      <Button component={Link} to={`/projects/${p.slug}`} size="small">
                         Read More
                       </Button>
                     </Box>

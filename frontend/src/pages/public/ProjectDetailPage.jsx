@@ -12,7 +12,7 @@ const ProjectDetailPage = () => {
   useEffect(() => {
     const load = async () => {
       const res = await projectApi.getBySlug(slug);
-      console.log(res)
+      console.log(res);
       setProject(res.data);
     };
     load();
@@ -20,9 +20,11 @@ const ProjectDetailPage = () => {
 
   return (
     <>
-      <Helmet><title>{project?.title ? `${project.title} | Portfolio` : 'Project | Portfolio'}</title></Helmet>
+      <Helmet>
+        <title>{project?.title ? `${project.title} | Portfolio` : 'Project | Portfolio'}</title>
+      </Helmet>
 
-      <PageSection className="py-16 bg-white dark:bg-dark-300">
+      <PageSection className="bg-white py-16 dark:bg-dark-300">
         {!project ? (
           <Typography color="text.secondary">Loading...</Typography>
         ) : (
@@ -42,12 +44,24 @@ const ProjectDetailPage = () => {
 
             <Stack direction="row" spacing={2} sx={{ mt: 3, flexWrap: 'wrap' }}>
               {project.liveUrl && (
-                <Button component="a" href={project.liveUrl} target="_blank" rel="noreferrer" variant="contained">
+                <Button
+                  component="a"
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="contained"
+                >
                   Live Demo
                 </Button>
               )}
               {project.githubUrl && (
-                <Button component="a" href={project.githubUrl} target="_blank" rel="noreferrer" variant="outlined">
+                <Button
+                  component="a"
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  variant="outlined"
+                >
                   GitHub
                 </Button>
               )}
@@ -71,7 +85,12 @@ const ProjectDetailPage = () => {
                   {project.images.map((img) => (
                     <Grid item xs={12} sm={6} md={4} key={img.public_id || img.url}>
                       <Card>
-                        <CardMedia component="img" height="200" image={img.url} alt="Project image" />
+                        <CardMedia
+                          component="img"
+                          height="200"
+                          image={img.url}
+                          alt="Project image"
+                        />
                       </Card>
                     </Grid>
                   ))}
