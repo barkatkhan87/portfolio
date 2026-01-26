@@ -6,8 +6,8 @@ import {
   FormControlLabel,
 } from '@mui/material';
 
-import CrudFormDialog from '../../components/admin/CrudFormDialog';
-import FileUploadField from '../../components/ui/FileUploadField';
+import CrudFormDialog from '../../../components/admin/CrudFormDialog';
+import FileUploadField from '../../../components/ui/FileUploadField';
 import {
   SALE_PROJECT_CATEGORY_OPTIONS,
   SALE_PROJECT_CURRENCY_OPTIONS,

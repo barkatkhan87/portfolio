@@ -6,9 +6,9 @@ import {
   Switch,
 } from '@mui/material';
 
-import CrudFormDialog from '../../components/admin/CrudFormDialog';
-import FileUploadField from '../../components/ui/FileUploadField';
-import { CATEGORIES } from '../../utils/constants';
+import CrudFormDialog from '../../../components/admin/CrudFormDialog';
+import FileUploadField from '../../../components/ui/FileUploadField';
+import { CATEGORIES } from '../../../utils/constants';
 import { useProjectForm } from './useProjectForm';
 
 const ProjectFormDialog = ({
