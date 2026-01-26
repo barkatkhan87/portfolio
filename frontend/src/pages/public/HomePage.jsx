@@ -1,53 +1,29 @@
-import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import {
   Box,
   Typography,
   Button,
   Grid,
-  Card,
-  CardContent,
-  CardMedia,
   Chip,
   Stack,
   Tooltip,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import PageSection from '../../components/common/PageSection';
-import { aboutApi } from '../../api/aboutApi';
-import { projectApi } from '../../api/projectApi';
 import Spline from '@splinetool/react-spline';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+
+import PageSection from '../../components/common/PageSection';
+import SectionHeader from '../../components/common/SectionHeader';
+import ProjectCard from '../../components/ui/ProjectCard';
+
+import { useHomeData } from '../../hooks/public/home/useHomeData';
+import { useAOSInit } from '../../hooks/shared/useAOSInit';
 
 const HomePage = () => {
-  const [about, setAbout] = useState(null);
-  const [featured, setFeatured] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Shared animation hook
+  useAOSInit();
 
-  // transitions
-  useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      once: true,
-    });
-  });
-
-  useEffect(() => {
-    const load = async () => {
-      try {
-        const [aboutRes, featuredRes] = await Promise.all([
-          aboutApi.get(),
-          projectApi.getFeatured(),
-        ]);
-        setAbout(aboutRes.data);
-        setFeatured(featuredRes.data || []);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, []);
+  // Page-specific data hook
+  const { about, featured, loading } = useHomeData();
 
   return (
     <>
@@ -67,15 +43,25 @@ const HomePage = () => {
             >
               {about?.title || 'Full Stack Developer'}
               <br />
-              <span className="gradient-text">{about?.subtitle || 'MERN Stack Specialist'}</span>
+              <span className="gradient-text">
+                {about?.subtitle || 'MERN Stack Specialist'}
+              </span>
             </Typography>
 
-            <Typography variant="h6" color="text.secondary" sx={{ mt: 2, maxWidth: 640 }}>
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{ mt: 2, maxWidth: 640 }}
+            >
               {about?.shortBio ||
                 'Building modern web applications with MERN stack. Clean UI, solid backend, scalable architecture.'}
             </Typography>
 
-            <Stack direction="row" spacing={2} sx={{ mt: 4, flexWrap: 'wrap' }}>
+            <Stack
+              direction="row"
+              spacing={2}
+              sx={{ mt: 4, flexWrap: 'wrap' }}
+            >
               <Button
                 data-aos="fade-up"
                 component={Link}
@@ -97,7 +83,11 @@ const HomePage = () => {
             </Stack>
 
             {(about?.socialLinks?.github || about?.socialLinks?.linkedin) && (
-              <Stack direction="row" spacing={1} sx={{ mt: 3, flexWrap: 'wrap' }}>
+              <Stack
+                direction="row"
+                spacing={1}
+                sx={{ mt: 3, flexWrap: 'wrap' }}
+              >
                 {about?.socialLinks?.github && (
                   <Tooltip title="GitHub Profile" arrow>
                     <Chip
@@ -140,36 +130,37 @@ const HomePage = () => {
       {/* FEATURED */}
       <PageSection className="bg-gray-50 py-16 dark:bg-dark-200">
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 800 }}>
-            Featured Projects
-          </Typography>
-          <Typography color="text.secondary">A few projects I’m proud of.</Typography>
+          <SectionHeader
+            title="Featured Projects"
+            subtitle="A few projects I’m proud of."
+            titleVariant="h4"
+          />
         </Box>
 
         {loading ? (
           <Typography color="text.secondary">Loading...</Typography>
         ) : featured.length === 0 ? (
-          <Typography color="text.secondary">No featured projects yet.</Typography>
+          <Typography color="text.secondary">
+            No featured projects yet.
+          </Typography>
         ) : (
           <Grid container spacing={3}>
             {featured.map((p) => (
-              <Grid data-aos="fade-up" item xs={12} sm={6} md={4} key={p._id}>
-                <Card className="card-hover">
-                  <CardMedia component="img" height="180" image={p.thumbnail?.url} alt={p.title} />
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                      {p.title}
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ mt: 1 }}>
-                      {p.description}
-                    </Typography>
-                    <Box sx={{ mt: 2 }}>
-                      <Button component={Link} to={`/projects/${p.slug}`} size="small">
-                        Read More
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
+              <Grid
+                data-aos="fade-up"
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                key={p._id}
+              >
+                <ProjectCard
+                  title={p.title}
+                  description={p.description}
+                  imageUrl={p.thumbnail?.url}
+                  to={`/projects/${p.slug}`}
+                  buttonLabel="Read More"
+                />
               </Grid>
             ))}
           </Grid>

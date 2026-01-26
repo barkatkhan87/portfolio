@@ -1,20 +1,12 @@
-import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Button,
-  TextField,
-  MenuItem,
-} from '@mui/material';
+import { Grid, TextField, MenuItem, Typography } from '@mui/material';
+
 import PageSection from '../../components/common/PageSection';
-import { saleProjectApi } from '../../api/saleProjectApi';
-import { CardGridSkeleton } from '../../components/common/Skeletons'; // 👈 NEW
+import { CardGridSkeleton } from '../../components/common/Skeletons';
+import SectionHeader from '../../components/common/SectionHeader';
+import ProjectCard from '../../components/ui/ProjectCard';
+
+import { useSaleProjectsData } from '../../hooks/public/saleProjects/useSaleProjectsData';
 
 const categories = [
   { value: 'all', label: 'All' },
@@ -29,33 +21,14 @@ const categories = [
 ];
 
 const SaleProjectsPage = () => {
-  const [items, setItems] = useState([]);
-  const [category, setCategory] = useState('all');
-  const [search, setSearch] = useState('');
-  const [loading, setLoading] = useState(true); // 👈 NEW
-
-  useEffect(() => {
-    const load = async () => {
-      setLoading(true);
-      try {
-        const res = await saleProjectApi.getAll({ category });
-        setItems(res.data?.items || []);
-      } finally {
-        setLoading(false);
-      }
-    };
-    load();
-  }, [category]);
-
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return items;
-    return items.filter(
-      (p) =>
-        (p.title || '').toLowerCase().includes(q) ||
-        (p.shortDescription || '').toLowerCase().includes(q)
-    );
-  }, [items, search]);
+  const {
+    category,
+    search,
+    loading,
+    filtered,
+    handleCategoryChange,
+    handleSearchChange,
+  } = useSaleProjectsData();
 
   return (
     <>
@@ -64,12 +37,10 @@ const SaleProjectsPage = () => {
       </Helmet>
 
       <PageSection className="py-16 bg-white dark:bg-dark-300">
-        <Typography variant="h3" sx={{ fontWeight: 800 }}>
-          Projects for Sale
-        </Typography>
-        <Typography color="text.secondary" sx={{ mt: 1, mb: 4 }}>
-          Ready-made projects with implementation guide. Delivery via WhatsApp or contact.
-        </Typography>
+        <SectionHeader
+          title="Projects for Sale"
+          subtitle="Ready-made projects with implementation guide. Delivery via WhatsApp or contact."
+        />
 
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item xs={12} md={4}>
@@ -77,7 +48,7 @@ const SaleProjectsPage = () => {
               fullWidth
               label="Search"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchChange}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -86,7 +57,7 @@ const SaleProjectsPage = () => {
               fullWidth
               label="Category"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={handleCategoryChange}
             >
               {categories.map((c) => (
                 <MenuItem key={c.value} value={c.value}>
@@ -98,49 +69,27 @@ const SaleProjectsPage = () => {
         </Grid>
 
         {loading ? (
-          // 👇 Show skeleton grid while loading
           <CardGridSkeleton count={6} />
         ) : (
           <Grid container spacing={3}>
             {filtered.map((p) => (
               <Grid item xs={12} sm={6} md={4} key={p._id}>
-                <Card className="card-hover">
-                  <CardMedia
-                    component="img"
-                    height="180"
-                    image={p.thumbnail?.url}
-                    alt={p.title}
-                  />
-                  <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 800 }}>
-                      {p.title}
-                    </Typography>
-                    <Typography color="text.secondary" sx={{ mt: 1 }}>
-                      {p.shortDescription}
-                    </Typography>
-                    <Box
-                      sx={{
-                        mt: 2,
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Typography sx={{ fontWeight: 800 }}>
-                        {p.currency} {p.price}
-                      </Typography>
-                      <Button component={Link} to={`/sale-projects/${p.slug}`} size="small">
-                        View
-                      </Button>
-                    </Box>
-                  </CardContent>
-                </Card>
+                <ProjectCard
+                  title={p.title}
+                  description={p.shortDescription}
+                  imageUrl={p.thumbnail?.url}
+                  to={`/sale-projects/${p.slug}`}
+                  buttonLabel="View"
+                  bottomRight={`${p.currency} ${p.price}`}
+                />
               </Grid>
             ))}
 
             {!loading && filtered.length === 0 && (
               <Grid item xs={12}>
-                <Typography color="text.secondary">No sale projects found.</Typography>
+                <Typography color="text.secondary">
+                  No sale projects found.
+                </Typography>
               </Grid>
             )}
           </Grid>

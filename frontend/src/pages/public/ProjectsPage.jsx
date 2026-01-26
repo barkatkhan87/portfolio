@@ -1,42 +1,21 @@
-import { useEffect, useMemo, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import {
-  Box,
-  Typography,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Button,
-  TextField,
-  MenuItem,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Grid, TextField, MenuItem, Typography } from '@mui/material';
+
 import PageSection from '../../components/common/PageSection';
-import { projectApi } from '../../api/projectApi';
+import SectionHeader from '../../components/common/SectionHeader';
+import ProjectCard from '../../components/ui/ProjectCard';
+
 import { CATEGORIES } from '../../utils/constants';
+import { useProjectsData } from '../../hooks/public/projects/useProjectsData';
 
 const ProjectsPage = () => {
-  const [projects, setProjects] = useState([]);
-  const [category, setCategory] = useState('all');
-  const [search, setSearch] = useState('');
-
-  useEffect(() => {
-    const load = async () => {
-      const res = await projectApi.getAll({ category });
-      setProjects(res.data?.projects || []);
-    };
-    load();
-  }, [category]);
-
-  const filtered = useMemo(() => {
-    const q = search.trim().toLowerCase();
-    if (!q) return projects;
-    return projects.filter(
-      (p) =>
-        (p.title || '').toLowerCase().includes(q) || (p.description || '').toLowerCase().includes(q)
-    );
-  }, [projects, search]);
+  const {
+    category,
+    search,
+    filtered,
+    handleCategoryChange,
+    handleSearchChange,
+  } = useProjectsData();
 
   return (
     <>
@@ -45,12 +24,7 @@ const ProjectsPage = () => {
       </Helmet>
 
       <PageSection className="bg-white py-16 dark:bg-dark-300">
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h3" sx={{ fontWeight: 800 }}>
-            Projects
-          </Typography>
-          <Typography color="text.secondary">Browse my work.</Typography>
-        </Box>
+        <SectionHeader title="Projects" subtitle="Browse my work." />
 
         <Grid container spacing={2} sx={{ mb: 4 }}>
           <Grid item xs={12} md={4}>
@@ -58,7 +32,7 @@ const ProjectsPage = () => {
               fullWidth
               label="Search"
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchChange}
             />
           </Grid>
           <Grid item xs={12} md={4}>
@@ -67,7 +41,7 @@ const ProjectsPage = () => {
               fullWidth
               label="Category"
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={handleCategoryChange}
             >
               {CATEGORIES.map((c) => (
                 <MenuItem key={c.value} value={c.value}>
@@ -81,24 +55,15 @@ const ProjectsPage = () => {
         <Grid container spacing={3}>
           {filtered.map((p) => (
             <Grid item xs={12} sm={6} md={4} key={p._id}>
-              <Card className="card-hover">
-                <CardMedia component="img" height="180" image={p.thumbnail?.url} alt={p.title} />
-                <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                    {p.title}
-                  </Typography>
-                  <Typography color="text.secondary" sx={{ mt: 1 }}>
-                    {p.description}
-                  </Typography>
-                  <Box sx={{ mt: 2 }}>
-                    <Button component={Link} to={`/projects/${p.slug}`} size="small">
-                      View Details
-                    </Button>
-                  </Box>
-                </CardContent>
-              </Card>
+              <ProjectCard
+                title={p.title}
+                description={p.description}
+                imageUrl={p.thumbnail?.url}
+                to={`/projects/${p.slug}`}
+              />
             </Grid>
           ))}
+
           {filtered.length === 0 && (
             <Grid item xs={12}>
               <Typography color="text.secondary">No projects found.</Typography>

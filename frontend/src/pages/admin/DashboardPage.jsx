@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Grid, Card, CardContent, Typography } from '@mui/material';
 import { dashboardApi } from '../../api/dashboardApi';
+import AdminPageHeader from '../../components/admin/AdminPageHeader';
 
 const StatCard = ({ title, value }) => (
   <Card className="card">
@@ -31,22 +32,32 @@ const DashboardPage = () => {
         <title>Dashboard | Admin</title>
       </Helmet>
 
-      <Typography variant="h4" sx={{ fontWeight: 800, mb: 3 }}>
-        Dashboard
-      </Typography>
+      <AdminPageHeader title="Dashboard" />
 
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Total Projects" value={stats?.overview?.totalProjects ?? '-'} />
+          <StatCard
+            title="Total Projects"
+            value={stats?.overview?.totalProjects ?? '-'}
+          />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Featured Projects" value={stats?.overview?.featuredProjects ?? '-'} />
+          <StatCard
+            title="Featured Projects"
+            value={stats?.overview?.featuredProjects ?? '-'}
+          />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Total Skills" value={stats?.overview?.totalSkills ?? '-'} />
+          <StatCard
+            title="Total Skills"
+            value={stats?.overview?.totalSkills ?? '-'}
+          />
         </Grid>
         <Grid item xs={12} sm={6} md={3}>
-          <StatCard title="Unread Messages" value={stats?.overview?.unreadMessages ?? '-'} />
+          <StatCard
+            title="Unread Messages"
+            value={stats?.overview?.unreadMessages ?? '-'}
+          />
         </Grid>
       </Grid>
     </>
